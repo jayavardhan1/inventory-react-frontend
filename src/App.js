@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+
+import Navbar from "./components/Navbar";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {useState} from "react";
+import Bill from "./components/Bill";
+import Items from "./components/Items";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    let [cartSize,setCartSize]=useState(JSON.parse(localStorage.getItem('imdb')).length||0)
+
+    return (
+
+    <div>
+        <BrowserRouter>
+            <Navbar cartSize={cartSize} />
+            <Routes>
+                <Route path="/bill"  setCartSize={setCartSize} element={<Bill/>}/>
+                <Route path="/"  setCartSize={setCartSize} element={<Items/>}/>
+            </Routes>
+        </BrowserRouter>
+        {/*        /!*<Route exact path='/Bill' element={< Bill />}></Route>*!/*/}
+
     </div>
   );
 }
